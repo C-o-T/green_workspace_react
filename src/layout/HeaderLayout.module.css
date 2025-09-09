@@ -1,0 +1,27 @@
+.container {
+  /* display: flex;
+  align-items: center; */
+  padding: 15px 30px;
+  background-color: black;
+  color: white;
+}
+
+.container h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.menu_div {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.menuHome, .carManagement, .salesInfoReg, .salesList {
+  cursor: pointer;
+  padding: 8px 15px;
+}
+
+.menuHome:hover, .carManagement:hover, .salesInfoReg:hover, .salesList:hover {
+  background-color: gray;
+}
