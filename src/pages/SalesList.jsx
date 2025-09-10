@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './SalesList.module.css';
+import dayjs from 'dayjs';
 
 const SalesList = () => {
   //판매 목록 데이터를 저장할 state 변수
@@ -45,7 +46,7 @@ const SalesList = () => {
                   <td>{salesList.length - i}</td>
                   <td>{saleInfo.buyerName}</td>
                   <td>{saleInfo.buyerContact ? saleInfo.buyerContact : '-'}</td> 
-                  <td>{saleInfo.saleDate}</td> 
+                  <td>{dayjs(saleInfo.saleDate).format('YYYY.MM.DD HH:mm')}</td> 
                   <td>{saleInfo.color}</td>
                   <td>{saleInfo.modelName}</td>
                   <td>{saleInfo.price.toLocaleString()}원</td>
