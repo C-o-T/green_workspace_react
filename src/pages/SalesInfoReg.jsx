@@ -58,7 +58,7 @@ const SalesInfoReg = () => {
 
     axios.post('/api/sales', salePayload)
       .then(res => {
-        console.log("판매 정보 등록 성공:", res.data);
+        console.log("판매 정보 등록 성공");
         alert('판매 정보가 성공적으로 등록되었습니다!');
         
         setSalesInputData({ 
