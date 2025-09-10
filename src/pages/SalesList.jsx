@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './SalesList.module.css';
-import PageTitle from '../common/PageTitle';
 
 const SalesList = () => {
   //판매 목록 데이터를 저장할 state 변수
@@ -22,7 +21,7 @@ const SalesList = () => {
 
   return (
     <div className={styles.container}>
-      <PageTitle title='판매 목록 조회'/>
+      <h2>판매 목록 조회</h2>
       <h3 className={styles.listTitle}>판매 내역</h3>
       <div className={styles.listSection}>
         {salesList.length === 0 ? (

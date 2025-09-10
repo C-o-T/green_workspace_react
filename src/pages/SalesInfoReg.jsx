@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from './SalesInfoReg.module.css';
-import PageTitle from '../common/PageTitle';
 import Input from '../common/Input';
 import Button from '../common/Button';
 
@@ -11,8 +10,8 @@ const SalesInfoReg = () => {
 
   //판매 정보 등록 데이터를 저장할 state 변수
   const [salesInputData, setSalesInputData] = useState({
-    color: '',
     buyerName: '',
+    color: '',
     contact: '',
     modelNum: ''
   });
@@ -31,7 +30,7 @@ const SalesInfoReg = () => {
   };
 
   const getCarModels = () => {
-    axios.get('/api/cars')
+    axios.get('/api/car')
       .then(res => {
         setCarModels(res.data);
         if (res.data.length > 0 && !salesInputData.modelNum) {
@@ -39,20 +38,13 @@ const SalesInfoReg = () => {
         }
       })
       .catch(e => {
-        console.error('차량 모델 목록을 불러오는 중 오류 발생:', e);
-        alert('차량 모델 목록을 불러오는 데 실패했습니다.'); 
-        setCarModels([]);
+        console.log(e)
       });
   };
 
   const doRegisterSale = () => {
     if (!salesInputData.color || !salesInputData.buyerName || !salesInputData.modelNum) {
       alert('색상, 구매자명, 모델명은 필수 입력 정보입니다.');
-      return;
-    }
-
-    if (salesInputData.contact && !/^010-\d{4}-\d{4}$/.test(salesInputData.contact)) {
-      alert('연락처는 "010-XXXX-YYYY" 형식으로 입력해 주세요.');
       return;
     }
 
@@ -70,8 +62,8 @@ const SalesInfoReg = () => {
         alert('판매 정보가 성공적으로 등록되었습니다!');
         
         setSalesInputData({ 
+          buyerName: '', 
             color: '', 
-            buyerName: '', 
             contact: '', 
             modelNum: carModels.length > 0 ? carModels[0].modelNum : ''
         });
@@ -79,8 +71,7 @@ const SalesInfoReg = () => {
         nav('/sales-list');
       })
       .catch(e => {
-        console.error('판매 정보 등록 중 오류 발생:', e);
-        alert('판매 정보 등록에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+        console.log(e)
       });
   };
 
@@ -88,12 +79,14 @@ const SalesInfoReg = () => {
     getCarModels();
   }, []);
 
+  console.log(salesInputData)
+
   return (
     <div className={styles.container}>
-      <PageTitle title='판매 정보 등록'/>
+      <h2>판매 정보 등록</h2>
       <div className={styles.formSection}>
         <div className={styles.formGroup}>
-          <label htmlFor="color" className={styles.label}>색상</label>
+          <span className={styles.span}>색상</span>
           <select 
             id="color" 
             name="color" 
@@ -109,7 +102,7 @@ const SalesInfoReg = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="modelNum" className={styles.label}>모델</label>
+          <span className={styles.span}>모델</span>
           {carModels.length === 0 ? (
             <p className={styles.noModelsMessage}>등록된 차량 모델이 없습니다.</p>
           ) : (
@@ -130,7 +123,7 @@ const SalesInfoReg = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="buyerName" className={styles.label}>구매자명</label>
+          <span className={styles.span}>구매자명</span>
           <Input 
             id="buyerName" 
             name="buyerName" 
@@ -141,14 +134,13 @@ const SalesInfoReg = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="contact" className={styles.label}>연락처</label>
+          <span className={styles.span}>연락처</span>
           <Input 
             id="contact" 
             name="contact" 
             type="text"
             value={salesInputData.contact} 
             onChange={handleInputDataChange} 
-            placeholder="010-XXXX-YYYY"
             className={styles.inputField}
           />
         </div>

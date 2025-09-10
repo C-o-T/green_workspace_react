@@ -26,7 +26,7 @@ const CarManagement = () => {
   };
 
   const getRegisteredCarList = () => {
-    axios.get('/api/cars')
+    axios.get('/api/car')
       .then(res => {
         console.log("차량 목록 조회 성공:", res.data);
         setRegisteredCars(res.data);
@@ -45,7 +45,7 @@ const CarManagement = () => {
       alert('차량가격은 유효한 숫자로 입력해 주세요.');
       return;
     }
-    axios.put('/api/cars', {
+    axios.put('/api/car', {
       manufacturer: carInputData.manufacturer,
       modelName: carInputData.modelName,
       price: priceValue
@@ -72,7 +72,7 @@ const CarManagement = () => {
 
       <div className={styles.formSection}>
         <div className={styles.formGroup}>
-          <label htmlFor="manufacturer" className={styles.label}>제조사</label>
+          <span className={styles.span}>제조사</span>
           <select 
             id="manufacturer" 
             name="manufacturer" 
@@ -88,7 +88,7 @@ const CarManagement = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="modelName" className={styles.label}>모델명</label>
+          <span className={styles.span}>모델명</span>
           <Input 
             id="modelName" 
             name="modelName" 
@@ -99,7 +99,7 @@ const CarManagement = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="price" className={styles.label}>차량가격</label>
+          <span className={styles.span}>차량가격</span>
           <Input 
             id="price" 
             name="price" 
